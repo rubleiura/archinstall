@@ -82,17 +82,44 @@ echo ""
 ################
 
 
+
+#########################################################################
+## Этот пункт предназначен для изменения переменных.                   ##
+## Он обязателен.Иначе установка системы  может пойти с ошибками.      ## 
+## Если параметры из раздела Тестирования не совпадают с параметрами   ##
+## раздела Переменные, необходимо с помощью текстового редактора       ##
+## провести групповое переименование переменных в таблице ниже,        ##
+## чтобы они соответствовали результатам тестирования.                 ##
+## По желанию можно изменить параметры пользователя, компьютера и ядра.##
+#########################################################################
+
+
+
 ############################################
 #  Объект           #   Переменная         #
 ############################################
-#   Hostname 	    #   archlinux          #
+#  Диски            #   sda sda1 sda2 sda3 #
 ############################################
-#   Ядро            #    linux-lts         #
+#   Hostname 	    #   archlinux               #
+############################################
+#   Ядро	        #   linux-lts          #
 ############################################
 #   размер SWAP	    #	sgdisk -n 2::-4G   #
 ############################################
-#   раздел SWAP	    #	sda3               #
-############################################
+
+
+
+Если система ставится на HDD, необходимо
+
+изменить параметры btrfs c SSD :
+
+ssd,noatime,space_cache=v2,compress=zstd:2,discard=async
+
+на HDD :
+
+noatime,space_cache=v2,compress=zstd:2,autodefrag
+
+
 
 
 
@@ -118,7 +145,7 @@ clear
 wipefs --all /dev/sda
 sgdisk -Z /dev/sda
 sgdisk -a 2048 -o /dev/sda
-sgdisk -n 1::+1024M --typecode=1:ef00 --change-name=1:'Раздел Boot Arch Linux' /dev/sda
+sgdisk -n 1::+1024M --typecode=1:ef00 --change-name=1:'Раздел Efi Arch Linux' /dev/sda
 sgdisk -n 2::-4G --typecode=2:8300 --change-name=2:'Системный раздел Arch Linux' /dev/sda
 sgdisk -n 3::-0 --typecode=3:8200 --change-name=3:'Раздел подкачки Arch Linux' /dev/sda
 clear
@@ -138,9 +165,10 @@ echo ""
 
 
 
-##################################
-## ФОРМАТИРОВАНИЕ, МОНТИРОВАНИЕ ##
-##################################
+#############################################
+## ФОРМАТИРОВАНИЕ, МОНТИРОВАНИЕ, УСТАНОВКА ##
+## БАЗОВЫХ ПАКЕТОВ, ВХОД в СИСТЕМУ CHROOT  ##
+#############################################
 
 
 
@@ -170,14 +198,14 @@ btrfs su cr /mnt/@tmp
 umount /mnt
 clear
 mount -o ssd,noatime,space_cache=v2,compress=zstd:2,discard=async,subvol=@ /dev/sda2 /mnt
-mkdir -p /mnt/{boot,home,root,srv,/var/cache,/var/log,/var/tmp,var/lib/machines,var/lib/portables}
+mkdir -p /mnt/{boot/efi,home,root,srv,/var/cache,/var/log,/var/tmp,var/lib/machines,var/lib/portables}
 mount -o ssd,noatime,space_cache=v2,compress=zstd:2,discard=async,subvol=@home /dev/sda2 /mnt/home
 mount -o ssd,noatime,space_cache=v2,compress=zstd:2,discard=async,subvol=@root /dev/sda2 /mnt/root
 mount -o ssd,noatime,space_cache=v2,compress=zstd:2,discard=async,subvol=@srv /dev/sda2 /mnt/srv
 mount -o ssd,noatime,space_cache=v2,compress=zstd:2,discard=async,subvol=@cache /dev/sda2 /mnt/var/cache
 mount -o ssd,noatime,space_cache=v2,compress=zstd:2,discard=async,subvol=@log /dev/sda2 /mnt/var/log
 mount -o ssd,noatime,space_cache=v2,compress=zstd:2,discard=async,subvol=@tmp /dev/sda2 /mnt/var/tmp
-mount /dev/sda1 /mnt/boot
+mount /dev/sda1 /mnt/boot/efi
 clear
 lsblk -o PATH,PTTYPE,PARTTYPE,FSTYPE,PARTTYPENAME /dev/sda
 lsblk /dev/sda
