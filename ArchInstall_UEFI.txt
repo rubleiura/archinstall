@@ -214,7 +214,7 @@ archinstall
 
 clear
 pacman -Syy
-pacman -S --noconfirm btrfs-progs bash-completion memtest86+ memtest86+-efi reflector pacman-contrib hyfetch fastfetch linux-lts-headers
+pacman -S --noconfirm btrfs-progs bash-completion memtest86+-efi reflector pacman-contrib hyfetch fastfetch linux-lts-headers
 echo "archlinux" > /etc/hostname
 clear
 
