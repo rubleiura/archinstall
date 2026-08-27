@@ -843,7 +843,7 @@ sudo systemctl enable --now switcheroo-control.service
 # -------------------------------------------------------------------------------
 sudo systemctl disable --now power-profiles-daemon
 sudo pacman -Rns --noconfirm power-profiles-daemon
-sudo pacman -S --noconfirm tlp tlp-rdw tlp-pd
+sudo pacman -S --noconfirm tlp tlp-rdw tlp-pd tlpui
 
 # [ДЛЯ ГИБРИДНЫХ СИСТЕМ: INTEL+NVIDIA / AMD+NVIDIA] Установка switcheroo-control:
 sudo pacman -S --noconfirm switcheroo-control
