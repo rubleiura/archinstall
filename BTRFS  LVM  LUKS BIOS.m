@@ -1047,8 +1047,9 @@ pacman -S --noconfirm network-manager-applet blueman
 pacman -S --noconfirm xdg-desktop-portal xdg-desktop-portal-gtk mpv shotwell
 pacman -S --noconfirm ffmpegthumbnailer poppler-glib
 pacman -S --noconfirm gvfs gvfs-afc gvfs-dnssd gvfs-goa gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-onedrive gvfs-smb gvfs-wsdd
-pacman -S --noconfirm lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
+pacman -S --noconfirm lightdm  lightdm-slick-greeter
 systemctl enable lightdm.service
+sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/' /etc/lightdm/lightdm.conf
 grub-mkconfig -o /boot/grub/grub.cfg
 mkinitcpio -P
 clear
