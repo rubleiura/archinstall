@@ -970,8 +970,6 @@ pacman -S --noconfirm networkmanager wpa_supplicant wireless_tools
 pacman -S --noconfirm openssh
 # 📦 plymouth — экран загрузки с анимацией (~3 МБ)
 pacman -S --noconfirm plymouth
-# 🎨 Активация темы Plymouth (избегает чёрного экрана при загрузке)
-plymouth-set-default-theme -R bgrt
 # 🔧 Включение системных служб
 systemctl enable NetworkManager.service
 systemctl enable grub-btrfsd.service
