@@ -1401,8 +1401,6 @@ pacman -S --noconfirm vulkan-tools libva-utils mesa-utils mesa-demos glmark2 nvt
 # 📦 nvidia-settings    : Панель управления настройками GPU.
 #
 # pacman -S --noconfirm nvidia-open-lts nvidia-utils lib32-nvidia-utils egl-wayland egl-wayland2 nvidia-settings
-# HOOKS: systemd сам обработает шифрование, lvm2 активирует тома
-# sed -i "s|^HOOKS=(.*)|HOOKS=(systemd autodetect microcode modconf keyboard sd-vconsole block sd-encrypt lvm2 filesystems fsck)|" /etc/mkinitcpio.conf#
 # 📋 1. Добавить параметр ядра nvidia-drm.modeset=1 в GRUB (обязательно для Wayland)
 # sed -i -E 's/^(GRUB_CMDLINE_LINUX_DEFAULT="[^"]*)"/\1 nvidia-drm.modeset=1"/' /etc/default/grub
 #
@@ -1426,8 +1424,6 @@ pacman -S --noconfirm vulkan-tools libva-utils mesa-utils mesa-demos glmark2 nvt
 # (Любая комбинация: AMD Radeon + NVIDIA, Intel Iris/UHD + NVIDIA)
 # 📦 1. Установка драйверов NVIDIA и критически важных библиотек EGL для Wayland
 # pacman -S --noconfirm nvidia-open-lts nvidia-utils lib32-nvidia-utils egl-wayland egl-wayland2 nvidia-settings
-# HOOKS: systemd сам обработает шифрование, lvm2 активирует тома
-# sed -i "s|^HOOKS=(.*)|HOOKS=(systemd autodetect microcode modconf keyboard sd-vconsole block sd-encrypt lvm2 filesystems fsck)|" /etc/mkinitcpio.conf
 # 📦 2. Установка инструмента управления питанием dGPU
 # switcheroo-control (современный, интеграция в GUI, рекомендуется для Wayland)
 # nvidia-prime (запуск через prime-run в терминале, раскомментируйте при необходимости)
